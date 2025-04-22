@@ -1,9 +1,12 @@
+import datetime
+import webbrowser
 import eel
 import pyttsx3
 import speech_recognition
 from GreetMe import greetMe
 from utils import speak
 import os
+import pyautogui
 
 eel.init("frontend")
 
@@ -64,6 +67,62 @@ def processCommand():
     elif "thank you" in query:
         speak("You're welcome sir")
         return {"status": "success", "message": "Welcome response"}
+    
+    elif "pause" in query:
+        pyautogui.press("k")
+        speak("video paused")
+    elif "play" in query:
+        pyautogui.press("k")
+        speak("video played")
+    elif "mute" in query:
+        pyautogui.press("m")  
+        speak("video muted")
+    elif "volume up" in query:
+        from keyboard import volumeup
+        speak("Turning volume up ,sir")
+        volumeup()
+        from keyboard import volumedown 
+        speak("Turning volume down ,sir")
+        volumedown()
+    
+    elif "open" in query:
+        from Dictapp import openappweb
+        openappweb(query)
+    elif "close" in query:
+        from Dictapp import closeappweb
+        closeappweb(query)
+        
+    elif "google" in query:
+        from SearchNow import searchGoogle
+        searchGoogle(query)
+        
+    elif "youtube" in query:
+        from SearchNow import searchYoutube
+        searchYoutube(query) 
+    
+    elif "wikipedia" in query:
+        from SearchNow import searchWikipedia
+        searchWikipedia(query)
+        
+    elif "news" in query:
+        from NewsRead import latestnews
+        latestnews()
+        
+    elif "temperature" in query:
+        search = "temperature in Mumbai"
+        url = f"https://www.google.com/search?q={search}"
+        webbrowser.open(url)
+        speak("Here is the current temperature in Mumbai")
+        
+    elif "weather" in query:
+        search = "temperature in Mumbai"
+        url = f"https://www.google.com/search?q={search}"
+        webbrowser.open(url)
+        speak("Here is the current temperature in Mumbai")
+        
+    elif "the time" in query:
+        strTime = datetime.datetime.now().strftime("%H:%M")
+        speak(f"Sir , the time is {strTime}")
     
     else:
         speak("I didn't understand that")
